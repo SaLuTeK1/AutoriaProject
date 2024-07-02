@@ -15,7 +15,7 @@ from django.db.transaction import atomic
 class ProfileSerializer(serializers.ModelSerializer):
     class Meta:
         model = ProfileModel
-        fields = ('id', 'name', 'surname',)
+        fields = ('id', 'name', 'surname', 'age', 'phone')
 
 
 class UserSerializer(serializers.ModelSerializer):
@@ -24,10 +24,10 @@ class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = UserModel
         fields = (
-            'id', 'email', 'password', 'is_active', 'is_staff', 'is_superuser',
+            'id', 'email', 'password', 'is_active', 'is_premium', 'is_staff', 'is_superuser',
             'last_login', 'created_at', 'updated_at', 'profile'
         )
-        read_only_fields = ('id', 'is_active', 'is_staff', 'is_superuser', 'last_login', 'created_at', 'updated_at')
+        read_only_fields = ('id', 'is_active', 'is_premium', 'is_staff', 'is_superuser', 'last_login', 'created_at', 'updated_at')
 
         extra_kwargs = {
             'password': {

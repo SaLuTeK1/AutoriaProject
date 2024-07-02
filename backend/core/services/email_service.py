@@ -8,6 +8,8 @@ from core.dataclasses.user_dataclass import UserDataClass
 from core.services.jwt_service import ActivateToken, JWTService, RecoveryToken
 
 UserModel = get_user_model()
+
+
 class EmailService:
     @staticmethod
     def __send_email(to: str, template_name: str, context: dict, subject: '') -> None:

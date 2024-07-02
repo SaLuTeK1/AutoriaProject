@@ -7,7 +7,8 @@ class ProfileDataClass:
     id: int
     name: str
     surname: str
-    avatar: str
+    age: int
+    phone: str
     created_at: datetime
     updated_at: datetime
 
@@ -18,6 +19,7 @@ class UserDataClass:
     email: str
     password: str
     is_active: bool
+    is_premium: bool
     is_staff: bool
     is_superuser: bool
     created_at: datetime
