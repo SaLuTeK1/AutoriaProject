@@ -16,11 +16,21 @@ class IsSuperUser(BasePermission):
 
 class IsPremiumUser(BasePermission):
     def has_permission(self, request: Request, view):
+        print(bool(request.user and request.user.is_premium))
+        print(request.user)
         return bool(request.user and request.user.is_premium)
 
 
-# class IsSellerUser(BasePermission):
-#     def has_permission(self, request: Request, view):
+class IsManagerUser(BasePermission):
+    def has_permission(self, request, view):
+        return bool(request.user and request.user.is_staff and request.user.role == 'manager' or request.user.role == 'admin')
+
+
+class IsSellerUser(BasePermission):
+    def has_permission(self, request, view):
+        return bool(request.user and request.user.role == 'seller')
+
+
 class IsBuyerUser(BasePermission):
-    def has_permission(self, request: Request, view):
-        return bool(request.user and request.user.is_authenticated)
+    def has_permission(self, request, view):
+        return bool(request.user and request.user.role == 'buyer')

@@ -27,6 +27,25 @@ class UserModel(PermissionsMixin, AbstractBaseUser, BaseModel):
 
     objects = UserManager()
 
+    ROLE_CHOICES = (
+        ('buyer', 'Buyer'),
+        ('seller', 'Seller'),
+        ('manager', 'Manager'),
+        ('admin', 'Admin'),
+    )
+    role = models.CharField(max_length=10, choices=ROLE_CHOICES, default='buyer')
+
+    def save(self, *args, **kwargs):
+        if self.role == 'admin':
+            self.is_superuser = True
+            self.is_staff = True
+        elif self.role == 'manager':
+            self.is_staff = True
+        else:
+            self.is_staff = False
+            self.is_superuser = False
+        super().save(*args, **kwargs)
+
 
 class ProfileModel(BaseModel):
     class Meta:

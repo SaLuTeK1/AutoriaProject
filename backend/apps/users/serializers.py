@@ -25,9 +25,9 @@ class UserSerializer(serializers.ModelSerializer):
         model = UserModel
         fields = (
             'id', 'email', 'password', 'is_active', 'is_premium', 'is_staff', 'is_superuser',
-            'last_login', 'created_at', 'updated_at', 'profile'
+            'last_login', 'created_at', 'updated_at', 'profile', 'cars', 'role'
         )
-        read_only_fields = ('id', 'is_active', 'is_premium', 'is_staff', 'is_superuser', 'last_login', 'created_at', 'updated_at')
+        read_only_fields = ('id', 'is_active', 'is_premium', 'is_staff', 'role', 'is_superuser', 'last_login', 'created_at', 'updated_at', 'cars')
 
         extra_kwargs = {
             'password': {
@@ -38,6 +38,7 @@ class UserSerializer(serializers.ModelSerializer):
     @atomic
     def create(self, validated_data: dict):
         profile = validated_data.pop('profile')
+        role = validated_data.get('role', 'buyer')
         user = UserModel.objects.create_user(**validated_data)
         ProfileModel.objects.create(**profile, user=user)
         EmailService.register(user)
