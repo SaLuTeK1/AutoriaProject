@@ -5,7 +5,7 @@ from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
 from apps.auth.views import RecoveryPasswordView, RecoveryRequestView, TokenPairView
 
 urlpatterns = [
-    path('', TokenPairView.as_view(), name='auth_login'),
+    path('', TokenObtainPairView.as_view(), name='auth_login'),
     path('/refresh', TokenRefreshView.as_view(), name='auth_refresh'),
     path('/recovery', RecoveryRequestView.as_view()),
     path('/recovery/<str:token>', RecoveryPasswordView.as_view())
