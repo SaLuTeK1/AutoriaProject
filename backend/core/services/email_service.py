@@ -20,6 +20,16 @@ class EmailService:
         msg.send()
 
     @classmethod
+    def ad_review(cls, manager: UserDataClass, ad):
+        url = f'http://localhost/api/advert/{ad}'
+        cls.__send_email(
+            manager.email,
+            'advertReview.html',
+            {'name': manager.profile.name, 'url': url},
+            'Advert Review'
+        )
+
+    @classmethod
     def register(cls, user: UserDataClass):
         token = JWTService.create_token(user, ActivateToken)
         url = f'http://localhost:3000/activate/{token}'

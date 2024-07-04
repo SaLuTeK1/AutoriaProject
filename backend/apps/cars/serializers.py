@@ -16,8 +16,7 @@ class CarSerializer(serializers.ModelSerializer):
                   'drive',
                   'gearbox',
                   'capacity',
-                  'price',
-                  'info')
+                  'price',)
 
     def validate(self, attrs):
         print(attrs)
