@@ -1,10 +1,10 @@
 from rest_framework import status
-from rest_framework.generics import CreateAPIView, GenericAPIView
+from rest_framework.generics import ListAPIView, GenericAPIView
 from rest_framework.permissions import AllowAny
 from rest_framework.response import Response
 
-from apps.advert.models import AdvertModel
-from apps.advert.serializers import AdvertSerializer
+from apps.advert.models import AdvertModel, AdvertViewsModel
+from apps.advert.serializers import AdvertSerializer, AdvertStatsSerializer
 from apps.cars.models import CarModel
 from apps.cars.serializers import CarSerializer
 
@@ -17,13 +17,34 @@ class CreateAdvertView(GenericAPIView):
     def post(self, *args, **kwargs):
         user = self.request.user
         print(user)
-        advert_serializer = AdvertSerializer(data=self.request.data)
+        if not user.is_premium and CarModel.objects.filter(user=user).count() >= 1:
+            return Response(
+                {"detail": "You cannot add more than one car with a basic account."},
+                status=status.HTTP_403_FORBIDDEN
+            )
+        data = self.request.data
+        print(data)
+        advert_serializer = AdvertSerializer(data=data)
         advert_serializer.is_valid(raise_exception=True)
         car_data = self.request.data.pop('car')
+        print(car_data)
         car_serializer = CarSerializer(data=car_data)
         car_serializer.is_valid(raise_exception=True)
-        car = car_serializer.save()
-        advert = advert_serializer.save(car=car)
+        car = car_serializer.save(user=user)
+        advert_serializer.save(car=car)
+        return Response(advert_serializer.data, status=status.HTTP_201_CREATED)
 
-        return Response(advert.data, status=status.HTTP_201_CREATED)
+
+class TestView(ListAPIView):
+    permission_classes = (AllowAny,)
+    queryset = AdvertModel.objects.all()
+    serializer_class = AdvertStatsSerializer
+
+    def get(self, *args, **kwargs):
+        instance = self.get_object()
+        AdvertViewsModel.objects.create(advert=instance)
+        serializer = self.get_serializer(instance)
+
+
+        return Response(serializer.data)
 

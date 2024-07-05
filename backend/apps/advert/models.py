@@ -1,7 +1,7 @@
 from django.contrib.auth import get_user_model
 from django.core import validators as V
 from django.db import models
-
+from django.utils import timezone
 from core.models import BaseModel
 from core.services.email_service import EmailService
 
@@ -47,3 +47,15 @@ class AdvertModel(BaseModel):
         manager = users.objects.filter(role='manager', is_active=True).first()
         if manager:
             EmailService.ad_review(manager, self.id)
+
+
+class AdvertViewsModel(BaseModel):
+    advert = models.ForeignKey(AdvertModel, on_delete=models.CASCADE, related_name='ad_views')
+
+    class Meta:
+        db_table = 'adverts_views'
+
+    def save(self, *args, **kwargs):
+        super().save(*args, **kwargs)
+        self.advert.views = AdvertViewsModel.objects.filter(advert=self.advert).count()
+        self.advert.save()
