@@ -16,6 +16,7 @@ class AdvertSerializer(serializers.ModelSerializer):
 
 
 class AdvertStatsSerializer(serializers.ModelSerializer):
+    car = CarSerializer()
     views_last_day = serializers.SerializerMethodField()
     # views_last_week = serializers.SerializerMethodField()
     # views_last_month = serializers.SerializerMethodField()
