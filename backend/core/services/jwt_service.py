@@ -26,6 +26,9 @@ class RecoveryToken(ActionToken):
     token_type = ActionTokenEnum.RECOVERY.token_type
     lifetime = ActionTokenEnum.RECOVERY.life_time
 
+class SocketToken(ActionToken):
+    token_type = ActionTokenEnum.SOCKET.token_type
+    lifetime = ActionTokenEnum.SOCKET.life_time
 
 class JWTService:
     @staticmethod

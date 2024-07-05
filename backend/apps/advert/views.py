@@ -1,7 +1,9 @@
 from rest_framework import status
-from rest_framework.generics import ListAPIView, GenericAPIView
+from rest_framework.generics import GenericAPIView, ListAPIView
 from rest_framework.permissions import AllowAny
 from rest_framework.response import Response
+
+from core.pagination import PagePagination
 
 from apps.advert.models import AdvertModel, AdvertViewsModel
 from apps.advert.serializers import AdvertSerializer, AdvertStatsSerializer
@@ -16,23 +18,31 @@ class CreateAdvertView(GenericAPIView):
 
     def post(self, *args, **kwargs):
         user = self.request.user
-        print(user)
+
         if not user.is_premium and CarModel.objects.filter(user=user).count() >= 1:
             return Response(
-                {"detail": "You cannot add more than one car with a basic account."},
+                {"detail": "You cannot add more than one advertisement with a basic account."},
                 status=status.HTTP_403_FORBIDDEN
             )
+
         data = self.request.data
-        print(data)
         advert_serializer = AdvertSerializer(data=data)
         advert_serializer.is_valid(raise_exception=True)
+
         car_data = self.request.data.pop('car')
-        print(car_data)
         car_serializer = CarSerializer(data=car_data)
         car_serializer.is_valid(raise_exception=True)
         car = car_serializer.save(user=user)
+
         advert_serializer.save(car=car)
         return Response(advert_serializer.data, status=status.HTTP_201_CREATED)
+
+
+class ListAdvertView(ListAPIView):
+    queryset = AdvertModel.objects.all()
+    serializer_class = AdvertStatsSerializer
+    permission_classes = (AllowAny,)
+    pagination_class = PagePagination
 
 
 class TestView(ListAPIView):
@@ -45,6 +55,4 @@ class TestView(ListAPIView):
         AdvertViewsModel.objects.create(advert=instance)
         serializer = self.get_serializer(instance)
 
-
         return Response(serializer.data)
-

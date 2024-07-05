@@ -2,6 +2,7 @@ from django.contrib.auth import get_user_model
 from django.core import validators as V
 from django.db import models
 from django.utils import timezone
+
 from core.models import BaseModel
 from core.services.email_service import EmailService
 

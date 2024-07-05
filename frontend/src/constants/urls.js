@@ -6,11 +6,15 @@ const urls = {
         ban:'ban'
     },
     auth:{
-        base:'auth',
+        login:'auth',
 
     },
     cars:{
         base:'cars'
+    },
+    advert:{
+        base:'advert',
+        byId:(id)=>`advert/${id}`
     }
 }
 
