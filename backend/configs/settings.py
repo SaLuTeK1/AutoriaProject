@@ -36,6 +36,7 @@ INSTALLED_APPS = [
     'apps.auth',
     'apps.users',
     'apps.cars',
+    'apps.advert',
     'core',
 ]
 
