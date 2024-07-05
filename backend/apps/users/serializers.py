@@ -38,7 +38,6 @@ class UserSerializer(serializers.ModelSerializer):
     @atomic
     def create(self, validated_data: dict):
         profile = validated_data.pop('profile')
-        role = validated_data.get('role', 'buyer')
         user = UserModel.objects.create_user(**validated_data)
         ProfileModel.objects.create(**profile, user=user)
         EmailService.register(user)

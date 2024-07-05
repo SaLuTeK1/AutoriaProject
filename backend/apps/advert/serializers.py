@@ -2,9 +2,8 @@ from datetime import datetime, timedelta
 
 from rest_framework import serializers
 
-from apps.cars.serializers import CarSerializer
-
 from apps.advert.models import AdvertModel, AdvertViewsModel
+from apps.cars.serializers import CarSerializer
 
 
 class AdvertSerializer(serializers.ModelSerializer):
