@@ -1,10 +1,11 @@
-
 from django.contrib.auth import get_user_model
 from django.core import validators as V
 from django.db import models
 
 from core.models import BaseModel
 from core.services.email_service import EmailService
+
+from apps.cars.models import CarModel
 
 
 class AdvertModel(BaseModel):
@@ -17,6 +18,11 @@ class AdvertModel(BaseModel):
                               choices=[('active', 'Active'), ('inactive', 'Inactive'), ('pending', 'Pending')],
                               default='pending')
     edit_attempts = models.IntegerField(default=0)
+
+    views = models.IntegerField(default=0)
+    region = models.CharField(max_length=50, validators=[V.MinLengthValidator(2)])
+
+    car = models.OneToOneField(CarModel, on_delete=models.CASCADE, related_name='advert')
 
     def save(self, *args, **kwargs):
         if self.edit_attempts >= 3:
@@ -41,5 +47,3 @@ class AdvertModel(BaseModel):
         manager = users.objects.filter(role='manager', is_active=True).first()
         if manager:
             EmailService.ad_review(manager, self.id)
-
-

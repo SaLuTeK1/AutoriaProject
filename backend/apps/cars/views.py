@@ -16,11 +16,10 @@ class CreateCarView(GenericAPIView):
     permission_classes = (IsAuthenticated,)
     serializer_class = CarSerializer
 
-    def post(self, request, *args, **kwargs):
-        user = request.user
-        data = request.data
+    def post(self, *args, **kwargs):
+        user = self.request.user
+        data = self.request.data
 
-        # Check if user is allowed to create more cars
         if not user.is_premium and CarModel.objects.filter(user=user).count() >= 1:
             return Response(
                 {"detail": "You cannot add more than one car with a basic account."},
