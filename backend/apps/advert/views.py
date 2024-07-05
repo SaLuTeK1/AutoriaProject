@@ -42,7 +42,6 @@ class ListAdvertView(ListAPIView):
     queryset = AdvertModel.objects.all()
     serializer_class = AdvertStatsSerializer
     permission_classes = (AllowAny,)
-    pagination_class = PagePagination
 
 
 class TestView(ListAPIView):
