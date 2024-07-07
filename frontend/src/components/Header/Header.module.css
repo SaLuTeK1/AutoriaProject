@@ -1,0 +1,9 @@
+.HeaderWrap{
+    width: 100%;
+    background: rgba(255, 164, 99, 0.89);
+    height: 70px;
+}
+.HeaderBox{
+    display: flex;
+    justify-content: space-between;
+}

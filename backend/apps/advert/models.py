@@ -1,17 +1,19 @@
 from django.contrib.auth import get_user_model
 from django.core import validators as V
 from django.db import models
-from django.utils import timezone
 
 from core.models import BaseModel
 from core.services.email_service import EmailService
 
 from apps.cars.models import CarModel
 
+from .choises import RegionChoices
+
 
 class AdvertModel(BaseModel):
     class Meta:
         db_table = 'advert'
+        ordering = ('id',)
 
     name = models.CharField(max_length=20, validators=[V.MinLengthValidator(10)])
     info = models.TextField(validators=[V.MinLengthValidator(2), V.MaxLengthValidator(180)])
@@ -21,7 +23,7 @@ class AdvertModel(BaseModel):
     edit_attempts = models.IntegerField(default=0)
 
     views = models.IntegerField(default=0)
-    region = models.CharField(max_length=50, validators=[V.MinLengthValidator(2)])
+    region = models.CharField(max_length=50, validators=[V.MinLengthValidator(2)], choices=[*RegionChoices.choices])
 
     car = models.OneToOneField(CarModel, on_delete=models.CASCADE, related_name='advert')
 

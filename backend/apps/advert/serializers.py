@@ -5,14 +5,19 @@ from rest_framework import serializers
 from apps.advert.models import AdvertModel, AdvertViewsModel
 from apps.cars.serializers import CarSerializer
 
+from .choises import RegionChoices
+
 
 class AdvertSerializer(serializers.ModelSerializer):
     car = CarSerializer()
 
     class Meta:
         model = AdvertModel
-        fields = ('id', 'name', 'info', 'status', 'edit_attempts', 'car')
-        read_only_fields = ('id', 'status', 'edit_attempts')
+        fields = ('id', 'name', 'info', 'region', 'status',  'car')
+        read_only_fields = ('id', 'status')
+
+    info = serializers.CharField(required=False)
+    region = serializers.ChoiceField(choices=RegionChoices.choices)
 
 
 class AdvertStatsSerializer(serializers.ModelSerializer):
@@ -25,9 +30,9 @@ class AdvertStatsSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = AdvertModel
-        fields = ['id', 'name', 'info', 'status', 'views', 'edit_attempts', 'views_last_day', 'avg_price_region',
+        fields = ['id', 'name', 'info', 'region', 'status', 'views',  'views_last_day', 'avg_price_region',
                   'avg_price_country', 'car']
-        read_only_fields = ('id', 'status', 'edit_attempts')
+        read_only_fields = ('id', 'status')
 
     def get_views_last_day(self, obj):
         return AdvertViewsModel.objects.filter(advert=obj, created_at__gte=datetime.now() - timedelta(days=1)).count()

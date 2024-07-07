@@ -10,9 +10,8 @@ app = Celery('configs')
 app.config_from_object('django.conf:settings', namespace='CELERY')
 
 app.conf.beat_schedule = {
-    'send_spam_every_minutes': {
-        'task': 'core.services.email_service.spam',
-        'schedule': crontab(),
-
+    'update_currency': {
+        'task': 'apps.cars.tasks.get_exchange_rates',
+        'schedule': crontab(minute='0', hour='0'),
     }
 }

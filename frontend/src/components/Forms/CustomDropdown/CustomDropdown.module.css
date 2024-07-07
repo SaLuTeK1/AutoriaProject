@@ -1,0 +1,25 @@
+.customDropdownContainer {
+    position: relative;
+}
+
+.customOptions {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    border: 1px solid #ccc;
+    background-color: #ffd9c2;
+    z-index: 1000;
+    max-height: 200px;
+    overflow-y: auto;
+    display: block;
+}
+
+.customOptions div {
+    padding: 10px;
+    cursor: pointer;
+}
+
+.customOptions div:hover {
+    background-color: #ffc7a1;
+}

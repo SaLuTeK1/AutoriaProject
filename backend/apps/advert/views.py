@@ -10,11 +10,14 @@ from apps.advert.serializers import AdvertSerializer, AdvertStatsSerializer
 from apps.cars.models import CarModel
 from apps.cars.serializers import CarSerializer
 
+from .filters import AdvertFilter
+
 
 class CreateAdvertView(GenericAPIView):
     queryset = AdvertModel.objects.all()
     permission_classes = (AllowAny,)
     serializer_class = AdvertSerializer
+
 
     def post(self, *args, **kwargs):
         user = self.request.user
@@ -32,6 +35,9 @@ class CreateAdvertView(GenericAPIView):
         car_data = self.request.data.pop('car')
         car_serializer = CarSerializer(data=car_data)
         car_serializer.is_valid(raise_exception=True)
+
+        print(car_serializer.validate(car_data))
+
         car = car_serializer.save(user=user)
 
         advert_serializer.save(car=car)
@@ -42,6 +48,7 @@ class ListAdvertView(ListAPIView):
     queryset = AdvertModel.objects.all()
     serializer_class = AdvertStatsSerializer
     permission_classes = (AllowAny,)
+    filterset_class = AdvertFilter
 
 
 class TestView(ListAPIView):
