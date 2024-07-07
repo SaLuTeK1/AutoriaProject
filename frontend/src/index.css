@@ -6,7 +6,7 @@
 }
 
 body {
-    background: #fad8a6;
+    background: #ffffff;
 }
 
 .wrapper {
@@ -15,16 +15,22 @@ body {
 }
 
 .search-form {
-    border: 1px solid burlywood;
+    border: 1px solid #b187de;
     display: flex;
+    justify-content: center;
+    align-items: center;
 }
-.my-link{
+
+.my-link {
     text-decoration: none;
     color: #441d03;
+    font-size: 24px;
+    font-weight: bold;
 }
+
 .create-btn {
     border: none;
-    background: #f1ff13;
+    background: rgba(212, 19, 255, 0.73);
     color: #170000;
     width: 200px;
     height: 80px;
@@ -42,27 +48,75 @@ input::-webkit-calendar-picker-indicator {
 }
 
 input {
-    background: #faffc2;
-    border: none;
+    background: #e7c7fc;
+    border: 1px solid #3b013b;
     color: #1e0000;
-    width:150px;
-    height: 40px;
+    width: 200px;
+    height: 50px;
 }
 
 input:disabled {
-    background: rgba(135, 136, 118, 0.78);
+    background: rgba(120, 80, 152, 0.78);
+}
+
+input::placeholder {
+    color: #1e0000;
 }
 
 .form-group {
-    margin: 0 10px;
+    margin: 10px;
 }
-.create-advertisement-form{
+
+.create-advertisement-form {
     display: flex;
     flex-wrap: wrap;
-    width: 30%;
-    gap:20px;
+    gap: 20px;
+    justify-content: space-between;
+    padding: 55px 15px;
+    background: #fcd5fc;
+    border: 1px solid #3b013b;
+    border-radius: 15px;
+    width: 700px;
+    align-items: center;
+}
+
+.create-advertisement-form .form-group {
+    width: 230px;
+}
+
+.btn {
+    border: 1px solid #3b013b;
+    width: 60px;
+    height: 40px;
+    background: #670267;
+    color: #f6ebff;
+}
+
+.log-btn {
+    width: 150px;
+    height: 50px;
+}
+
+.login-box {
+    margin-top: 100px;
+    display: flex;
+    align-items: flex-start;
     justify-content: space-between;
 }
-.create-advertisement-form .form-group{
 
+.login-form {
+    display: flex;
+    flex-direction: column;
+    padding: 55px 15px;
+    gap: 25px;
+    background: #fcd5fc;
+    border: 1px solid #3b013b;
+    border-radius: 15px;
+    width: 500px;
+    justify-content: center;
+    align-items: center;
+}
+
+.login-form input{
+    width: 250px;
 }

@@ -27,11 +27,11 @@ const UserInfo = ({setTrigger}) => {
                     <div>
                         {profile.name}
                     </div>
-                    <button onClick={() => logOut()}>Log Out</button>
+                    <button className={`log-btn btn`} onClick={() => logOut()}>Log Out</button>
                 </div>
                 :
                 <div>
-                    <button onClick={() => navigate('/login')}>Log In</button>
+                    <button className={`log-btn btn`} onClick={() => navigate('/login')}>Log In</button>
                 </div>}
         </div>
 

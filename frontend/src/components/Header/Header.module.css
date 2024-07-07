@@ -1,6 +1,6 @@
 .HeaderWrap{
-    width: 100%;
-    background: rgba(255, 164, 99, 0.89);
+    width: 100vw;
+    background: rgba(151, 42, 253, 0.89);
     height: 70px;
     display: flex;
     align-items: center;

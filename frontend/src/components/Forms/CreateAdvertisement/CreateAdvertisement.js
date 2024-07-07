@@ -84,7 +84,7 @@ const CreateAdvertisement = () => {
                     name="car.year"
                     placeholder="Enter year"
                     className="form-control"
-                    {...register('car.year', { valueAsNumber: true })}
+                    {...register('car.year', {valueAsNumber: true})}
                 />
             </div>
 
@@ -96,7 +96,7 @@ const CreateAdvertisement = () => {
                     name="car.engine"
                     placeholder="Enter engine capacity"
                     className="form-control"
-                    {...register('car.engine', { valueAsNumber: true })}
+                    {...register('car.engine', {valueAsNumber: true})}
                 />
             </div>
             {/*<div className="form-group">*/}
@@ -142,7 +142,7 @@ const CreateAdvertisement = () => {
                     name="car.capacity"
                     placeholder="Enter capacity"
                     className="form-control"
-                    {...register('car.capacity', { valueAsNumber: true })}
+                    {...register('car.capacity', {valueAsNumber: true})}
                 />
             </div>
             <div className="form-group">
@@ -151,7 +151,7 @@ const CreateAdvertisement = () => {
                     name="car.mileage"
                     placeholder="Enter mileage"
                     className="form-control"
-                    {...register('car.mileage', { valueAsNumber: true })}
+                    {...register('car.mileage', {valueAsNumber: true})}
                 />
             </div>
             <div className="form-group">
@@ -160,7 +160,7 @@ const CreateAdvertisement = () => {
                     name="car.price"
                     placeholder="Enter price"
                     className="form-control"
-                    {...register('car.price', { valueAsNumber: true })}
+                    {...register('car.price', {valueAsNumber: true})}
                 />
             </div>
             <div className="form-group">
@@ -179,13 +179,26 @@ const CreateAdvertisement = () => {
             </div>
             <div className="form-group">
                 <textarea
+                    style={{resize:"none"}}
                     name="info"
                     placeholder="Enter information"
                     className="form-control"
                     {...register('info')}
+
                 />
             </div>
-            <button type="submit">Save</button>
+            <div className="form-group">
+                <input type={"file"}
+                       name={'car.car_photo'}
+                       placeholder={"Upload car photo"}
+                       className="form-control"
+                       {...register('car.car_photo')}
+                />
+            </div>
+            <div className="form-group">
+
+                <button type="submit" className={'btn log-btn'}>Save</button>
+            </div>
         </form>
     );
 };

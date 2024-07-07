@@ -40,37 +40,49 @@ const SearchForm = () => {
     };
 
     return (
-        <form onSubmit={handleSubmit(save)} className="search-form">
-            <div className="form-group">
-                <CustomDropdown
-                    options={brands}
-                    name="brand"
-                    placeholder="Brand"
-                    setValue={setValue}
-                    watch={watch}
-                />
-            </div>
-            <div className="form-group">
-                <CustomDropdown
-                    options={models}
-                    name="model"
-                    placeholder="Model"
-                    setValue={setValue}
-                    watch={watch}
-                    disabled={!selectedBrand}
-                />
-            </div>
-            <div className="form-group">
-                <CustomDropdown
-                    options={regions}
-                    name="region"
-                    placeholder="Region"
-                    setValue={setValue}
-                    watch={watch}
-                />
-            </div>
-            <button type="submit" className="btn btn-primary">Пошук</button>
-        </form>
+        <>
+            <form onSubmit={handleSubmit(save)} className="search-form">
+                <div style={{display: "flex", flexDirection: "column",}}>
+                    <div className="form-group">
+                        <CustomDropdown
+                            options={brands}
+                            name="brand"
+                            placeholder="Brand"
+                            setValue={setValue}
+                            watch={watch}
+                        />
+                    </div>
+                    <div className="form-group">
+                        <CustomDropdown
+                            options={models}
+                            name="model"
+                            placeholder="Model"
+                            setValue={setValue}
+                            watch={watch}
+                            disabled={!selectedBrand}
+                        />
+                    </div>
+                    <div className="form-group">
+                        <CustomDropdown
+                            options={regions}
+                            name="region"
+                            placeholder="Region"
+                            setValue={setValue}
+                            watch={watch}
+                        />
+                    </div>
+
+                </div>
+                <div>
+                    <button type="submit" className="btn btn-primary">Search</button>
+                    <div>
+                        <h5>Not found your car?</h5>
+                        <h5>Notify our managers!</h5>
+                    </div>
+                </div>
+            </form>
+
+        </>
     );
 };
 
