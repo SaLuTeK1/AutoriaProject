@@ -1,14 +1,12 @@
-from django.shortcuts import render
+
 
 from rest_framework import status
-# Create your views here.
 from rest_framework.generics import CreateAPIView, GenericAPIView, ListAPIView, RetrieveUpdateDestroyAPIView
 from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework.response import Response
 
 from apps.cars.models import CarModel
 from apps.cars.serializers import CarListSerializer, CarSerializer
-from apps.users.models import ProfileModel, UserModel
 from apps.users.serializers import UserSerializer
 
 

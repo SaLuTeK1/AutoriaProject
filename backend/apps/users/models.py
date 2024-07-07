@@ -4,6 +4,7 @@ from django.db import models
 
 from core.enums.regex_enum import RegexEnum
 from core.models import BaseModel
+from core.services.upload_avatar import upload_avatar
 
 from apps.users.managers import UserManager
 
@@ -66,5 +67,5 @@ class ProfileModel(BaseModel):
     ])
 
     user = models.OneToOneField(UserModel, on_delete=models.CASCADE, related_name='profile')
-   
+    avatar = models.ImageField(upload_to=upload_avatar, null=True, blank=True)
 

@@ -1,6 +1,9 @@
 from rest_framework import serializers
+from rest_framework.exceptions import ValidationError
 
 from apps.cars.models import CarModel
+
+from .choises import CAR_MODELS
 
 
 class CarSerializer(serializers.ModelSerializer):
@@ -16,10 +19,20 @@ class CarSerializer(serializers.ModelSerializer):
                   'drive',
                   'gearbox',
                   'capacity',
-                  'price',)
+                  'price',
+                  'mileage',
+                  'currency',)
+
+    fuel = serializers.CharField(required=False)
+    gearbox = serializers.CharField(required=False)
 
     def validate(self, attrs):
-        print(attrs)
+        brand = attrs.get('brand')
+        model = attrs.get('model')
+
+        if model not in CAR_MODELS.get(brand, []):
+            raise ValidationError(f"The model '{model}' is not valid for brand '{brand}'")
+
         return attrs
 
 

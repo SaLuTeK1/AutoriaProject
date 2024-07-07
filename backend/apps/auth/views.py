@@ -22,6 +22,10 @@ UserModel = get_user_model()
 
 # Create your views here.
 class UserActivateView(GenericAPIView):
+    """
+    Show advertisement by id
+    """
+
     permission_classes = [AllowAny]
 
     def post(self, *args, **kwargs):

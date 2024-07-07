@@ -1,17 +1,20 @@
 from django.contrib.auth import get_user_model
 from django.core import validators as V
 from django.db import models
-from django.utils import timezone
 
 from core.models import BaseModel
 from core.services.email_service import EmailService
+from core.services.upload_avatar import upload_avatar
 
 from apps.cars.models import CarModel
+
+from .choises import RegionChoices
 
 
 class AdvertModel(BaseModel):
     class Meta:
         db_table = 'advert'
+        ordering = ('id',)
 
     name = models.CharField(max_length=20, validators=[V.MinLengthValidator(10)])
     info = models.TextField(validators=[V.MinLengthValidator(2), V.MaxLengthValidator(180)])
@@ -21,12 +24,14 @@ class AdvertModel(BaseModel):
     edit_attempts = models.IntegerField(default=0)
 
     views = models.IntegerField(default=0)
-    region = models.CharField(max_length=50, validators=[V.MinLengthValidator(2)])
+    region = models.CharField(max_length=50, validators=[V.MinLengthValidator(2)], choices=[*RegionChoices.choices])
+
+    car_photo = models.ImageField(upload_to=upload_avatar, null=True, blank=True)
 
     car = models.OneToOneField(CarModel, on_delete=models.CASCADE, related_name='advert')
 
     def save(self, *args, **kwargs):
-        if self.edit_attempts >= 3:
+        if self.edit_attempts >= 2:
             self.status = 'inactive'
             self.notify_manager()
         else:
