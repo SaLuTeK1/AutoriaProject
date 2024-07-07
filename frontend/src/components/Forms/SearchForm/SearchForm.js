@@ -1,25 +1,26 @@
-import { useForm } from "react-hook-form";
-import { useEffect, useState } from "react";
-import { carsService } from "../../../services/carsService";
-import { advertService } from "../../../services/advertService";
-import { CustomDropdown } from "../CustomDropdown/CustomDropdown";
+import {useForm} from "react-hook-form";
+import {useEffect, useState} from "react";
+import {carsService} from "../../../services/carsService";
+import {advertService} from "../../../services/advertService";
+import {CustomDropdown} from "../CustomDropdown/CustomDropdown";
+import {useNavigate, useSearchParams} from "react-router-dom";
 
 const SearchForm = () => {
-    const { handleSubmit, register, reset, watch, setValue } = useForm();
+    const {handleSubmit, register, reset, watch, setValue} = useForm();
     const [brands, setBrands] = useState([]);
     const [models, setModels] = useState([]);
     const [regions, setRegions] = useState([]);
-
     const selectedBrand = watch('brand');
+    const navigate = useNavigate();
 
     useEffect(() => {
-        carsService.getBrands().then(({ data }) => setBrands(data));
-        advertService.getRegions().then(({ data }) => setRegions(data));
+        carsService.getBrands().then(({data}) => setBrands(data));
+        advertService.getRegions().then(({data}) => setRegions(data));
     }, []);
 
     useEffect(() => {
         if (selectedBrand) {
-            carsService.getModels(selectedBrand).then(({ data }) => setModels(data));
+            carsService.getModels(selectedBrand).then(({data}) => setModels(data));
         } else {
             setModels([]);
         }
@@ -27,6 +28,14 @@ const SearchForm = () => {
 
     const save = (data) => {
         console.log(data.brand, data.model);
+        const {brand, model, region} = data;
+        const query = new URLSearchParams();
+        if (brand) query.append('brand', brand);
+        if (model) query.append('model', model);
+        if (region) query.append('region', region);
+
+        const queryString = query.toString();
+        navigate(`/home?${queryString}`)
         reset();
     };
 
@@ -65,4 +74,4 @@ const SearchForm = () => {
     );
 };
 
-export { SearchForm };
+export {SearchForm};

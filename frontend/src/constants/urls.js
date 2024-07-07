@@ -19,8 +19,9 @@ const urls = {
     },
     advert:{
         base:'/advert',
+        create:'/advert/create',
         byId:(id)=>`/advert/${id}`,
-        region:'/advert/regions'
+        region:'/advert/regions',
     }
 }
 

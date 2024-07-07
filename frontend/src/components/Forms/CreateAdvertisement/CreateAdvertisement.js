@@ -31,13 +31,13 @@ const CreateAdvertisement = () => {
         }
     }, [selectedBrand]);
     const save = (advert) => {
-        console.log(advert);
-
-        reset();
+        advertService.create(advert)
+        console.log(advert)
+        // reset();
     }
 
     return (
-        <form onSubmit={handleSubmit(save)} className="create-advertisement-form">
+        <form onSubmit={handleSubmit(save)} className="create-advertisement-form wrapper">
             <div className="form-group">
                 <input
                     type="text"
@@ -84,7 +84,7 @@ const CreateAdvertisement = () => {
                     name="car.year"
                     placeholder="Enter year"
                     className="form-control"
-                    {...register('car.year')}
+                    {...register('car.year', { valueAsNumber: true })}
                 />
             </div>
 
@@ -96,19 +96,19 @@ const CreateAdvertisement = () => {
                     name="car.engine"
                     placeholder="Enter engine capacity"
                     className="form-control"
-                    {...register('car.engine')}
+                    {...register('car.engine', { valueAsNumber: true })}
                 />
             </div>
-            <div className="form-group">
+            {/*<div className="form-group">*/}
 
-                <input
-                    type="text"
-                    name="car.fuel"
-                    placeholder="Enter fuel type"
-                    className="form-control"
-                    {...register('car.fuel')}
-                />
-            </div>
+            {/*    <input*/}
+            {/*        type="text"*/}
+            {/*        name="car.fuel"*/}
+            {/*        placeholder="Enter fuel type"*/}
+            {/*        className="form-control"*/}
+            {/*        {...register('car.fuel', { valueAsNumber: true })}*/}
+            {/*    />*/}
+            {/*</div>*/}
             <div className="form-group">
                 <CustomDropdown
                     options={bodies}
@@ -127,22 +127,31 @@ const CreateAdvertisement = () => {
                     {...register('car.drive')}
                 />
             </div>
-            <div className="form-group">
-                <input
-                    type="text"
-                    name="car.gearbox"
-                    placeholder="Enter gearbox type"
-                    className="form-control"
-                    {...register('car.gearbox')}
-                />
-            </div>
+            {/*<div className="form-group">*/}
+            {/*    <input*/}
+            {/*        type="text"*/}
+            {/*        name="car.gearbox"*/}
+            {/*        placeholder="Enter gearbox type"*/}
+            {/*        className="form-control"*/}
+            {/*        {...register('car.gearbox')}*/}
+            {/*    />*/}
+            {/*</div>*/}
             <div className="form-group">
                 <input
                     type="number"
                     name="car.capacity"
                     placeholder="Enter capacity"
                     className="form-control"
-                    {...register('car.capacity')}
+                    {...register('car.capacity', { valueAsNumber: true })}
+                />
+            </div>
+            <div className="form-group">
+                <input
+                    type="number"
+                    name="car.mileage"
+                    placeholder="Enter mileage"
+                    className="form-control"
+                    {...register('car.mileage', { valueAsNumber: true })}
                 />
             </div>
             <div className="form-group">
@@ -151,7 +160,7 @@ const CreateAdvertisement = () => {
                     name="car.price"
                     placeholder="Enter price"
                     className="form-control"
-                    {...register('car.price')}
+                    {...register('car.price', { valueAsNumber: true })}
                 />
             </div>
             <div className="form-group">

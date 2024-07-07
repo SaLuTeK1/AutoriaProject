@@ -23,6 +23,7 @@ urlpatterns = [
     path('api/auth', include('apps.auth.urls')),
     path('api/cars', include('apps.cars.urls')),
     path('api/advert', include('apps.advert.urls')),
+    path('api/dealership', include('apps.dealerships.urls')),
     path('api/doc', schema_view.with_ui('swagger', cache_timeout=0), name='documentation'),
 ]
 

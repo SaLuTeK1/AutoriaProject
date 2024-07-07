@@ -1,6 +1,6 @@
 import {useForm} from "react-hook-form";
 import {authService} from "../services/authService";
-import {useNavigate} from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
 
 const LoginPage = () => {
 
@@ -9,7 +9,6 @@ const LoginPage = () => {
     const onSubmit = async (user) => {
         await authService.login(user)
         navigate('/home')
-        console.log(user)
     }
     return (
 
@@ -18,6 +17,7 @@ const LoginPage = () => {
                 <input type="text" placeholder={'email'} {...register('email')}/>
                 <input type="text" placeholder={'password'} {...register('password')}/>
                 <button>login</button>
+                <Link to={'/sign_up'}>Sign Up</Link>
             </form>
         </div>
     );

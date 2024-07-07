@@ -18,7 +18,10 @@ body {
     border: 1px solid burlywood;
     display: flex;
 }
-
+.my-link{
+    text-decoration: none;
+    color: #441d03;
+}
 .create-btn {
     border: none;
     background: #f1ff13;
@@ -56,5 +59,10 @@ input:disabled {
 .create-advertisement-form{
     display: flex;
     flex-wrap: wrap;
-    width: 70%;
+    width: 30%;
+    gap:20px;
+    justify-content: space-between;
+}
+.create-advertisement-form .form-group{
+
 }

@@ -23,14 +23,14 @@ const CustomDropdown = ({ options = [], name, placeholder, setValue, watch, disa
     const handleInputChange = (e) => {
         const value = e.target.value;
         setInputValue(value);
-        setValue(name, value);  // Установити значення в форму
+        setValue(name, value);
         setShowOptions(true);
     };
 
     const handleOptionClick = (option) => {
         setInputValue(option);
         setShowOptions(false);
-        setValue(name, option);  // Установити значення в форму
+        setValue(name, option);
     };
 
     return (

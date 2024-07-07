@@ -14,10 +14,13 @@ from .filters import AdvertFilter
 
 
 class CreateAdvertView(GenericAPIView):
+    """
+    Create a new advertisement
+    """
+
     queryset = AdvertModel.objects.all()
     permission_classes = (AllowAny,)
     serializer_class = AdvertSerializer
-
 
     def post(self, *args, **kwargs):
         user = self.request.user
@@ -45,6 +48,9 @@ class CreateAdvertView(GenericAPIView):
 
 
 class ListAdvertView(ListAPIView):
+    """
+    Show all advertisements
+    """
     queryset = AdvertModel.objects.all()
     serializer_class = AdvertStatsSerializer
     permission_classes = (AllowAny,)
@@ -52,6 +58,10 @@ class ListAdvertView(ListAPIView):
 
 
 class TestView(ListAPIView):
+    """
+    Show advertisement by id
+    """
+
     permission_classes = (AllowAny,)
     queryset = AdvertModel.objects.all()
     serializer_class = AdvertStatsSerializer
