@@ -45,7 +45,7 @@ class AdvertModel(BaseModel):
         super().save(*args, **kwargs)
 
     def contains_prohibited_language(self, text):
-        prohibited_words = ['badword1', 'badword2']
+        prohibited_words = ['badword1', 'badword2'] #можна доповнювати,або винести в окремий файл
         return any(word in text.lower() for word in prohibited_words)
 
     def notify_manager(self):
