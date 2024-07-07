@@ -13,11 +13,26 @@ class AdvertSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = AdvertModel
-        fields = ('id', 'name', 'info', 'region', 'status',  'car')
+        fields = ('id', 'name', 'info', 'region', 'status',  'car', 'car_photo')
         read_only_fields = ('id', 'status')
 
     info = serializers.CharField(required=False)
+    car_photo = serializers.ImageField(required=False)
     region = serializers.ChoiceField(choices=RegionChoices.choices)
+
+    def update(self, instance, validated_data):
+
+        car_data = validated_data.pop('car', None)
+        if car_data:
+            car_serializer = CarSerializer(instance.car, data=car_data, partial=True)
+            car_serializer.is_valid(raise_exception=True)
+            car_serializer.save()
+
+        for attr, value in validated_data.items():
+            setattr(instance, attr, value)
+
+        instance.save()
+        return instance
 
 
 class AdvertStatsSerializer(serializers.ModelSerializer):

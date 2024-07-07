@@ -1,6 +1,6 @@
 from rest_framework import status
 from rest_framework.generics import GenericAPIView, ListAPIView
-from rest_framework.permissions import AllowAny
+from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework.response import Response
 
 from core.pagination import PagePagination
@@ -39,12 +39,55 @@ class CreateAdvertView(GenericAPIView):
         car_serializer = CarSerializer(data=car_data)
         car_serializer.is_valid(raise_exception=True)
 
-        print(car_serializer.validate(car_data))
-
         car = car_serializer.save(user=user)
 
         advert_serializer.save(car=car)
         return Response(advert_serializer.data, status=status.HTTP_201_CREATED)
+
+
+class UpdateAdvertView(GenericAPIView):
+    """
+    Update an existing advertisement
+    """
+
+    queryset = AdvertModel.objects.all()
+    permission_classes = (IsAuthenticated,)
+    serializer_class = AdvertSerializer
+
+    def put(self, *args, **kwargs):
+        user = self.request.user
+
+        if not user.is_authenticated:
+            return Response(
+                {"detail": "Authentication credentials were not provided."},
+                status=status.HTTP_401_UNAUTHORIZED
+            )
+
+        advert_id = kwargs.get('pk')
+
+        try:
+            advert_instance = AdvertModel.objects.get(pk=advert_id, car__user=user)
+        except AdvertModel.DoesNotExist:
+            return Response(
+                {"detail": "Advertisement not found or you do not have permission to edit this advertisement."},
+                status=status.HTTP_404_NOT_FOUND
+            )
+
+        data = self.request.data
+        advert_serializer = AdvertSerializer(advert_instance, data=data, partial=True)
+        advert_serializer.is_valid(raise_exception=True)
+
+        updated_advert = advert_serializer.save()
+
+        if updated_advert.contains_prohibited_language(updated_advert.name) or updated_advert.contains_prohibited_language(updated_advert.info):
+            return Response(
+                {"detail": "Your advertisement contains prohibited language. Please correct it and try again."},
+                status=status.HTTP_400_BAD_REQUEST
+            )
+
+        updated_advert.save()
+
+        return Response(advert_serializer.data, status=status.HTTP_200_OK)
 
 
 class ListAdvertView(ListAPIView):

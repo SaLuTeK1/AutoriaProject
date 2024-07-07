@@ -1,12 +1,14 @@
 from rest_framework import status
-from rest_framework.generics import GenericAPIView, ListCreateAPIView
-from rest_framework.permissions import AllowAny
+from rest_framework.generics import GenericAPIView, ListCreateAPIView, UpdateAPIView
+from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework.response import Response
 
 from core.permissions import IsManagerUser
 
 from apps.users.models import UserModel
-from apps.users.serializers import UserSerializer
+from apps.users.serializers import ProfileAvatarSerializer, UserSerializer
+
+from .models import ProfileModel
 
 
 class UserListCreateAPIView(ListCreateAPIView):
@@ -47,3 +49,17 @@ class UserUnBlock(GenericAPIView):
             user.save()
         serializer = UserSerializer(user)
         return Response(serializer.data, status=status.HTTP_200_OK)
+
+
+class UserAddAvatarView(UpdateAPIView):
+    permission_classes = (IsAuthenticated,)
+    serializer_class = ProfileAvatarSerializer
+    http_method_names = ('put',)
+
+    def get_object(self):
+        return self.request.user.profile
+
+    def perform_update(self, serializer):
+        profile: ProfileModel = self.get_object()
+        profile.avatar.delete()
+        super().perform_update(serializer)

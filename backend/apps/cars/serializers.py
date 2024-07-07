@@ -21,7 +21,7 @@ class CarSerializer(serializers.ModelSerializer):
                   'capacity',
                   'price',
                   'mileage',
-                  'currency')
+                  'currency',)
 
     fuel = serializers.CharField(required=False)
     gearbox = serializers.CharField(required=False)
