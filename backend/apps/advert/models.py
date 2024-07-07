@@ -31,7 +31,7 @@ class AdvertModel(BaseModel):
     car = models.OneToOneField(CarModel, on_delete=models.CASCADE, related_name='advert')
 
     def save(self, *args, **kwargs):
-        if self.edit_attempts >= 3:
+        if self.edit_attempts >= 2:
             self.status = 'inactive'
             self.notify_manager()
         else:
