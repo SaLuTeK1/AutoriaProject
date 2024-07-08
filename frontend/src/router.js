@@ -6,6 +6,7 @@ import {CreateCarPage} from "./pages/CreateCarPage";
 import {AdvertInfoPage} from "./pages/AdvertInfoPage";
 
 import {advertService} from "./services/advertService";
+import {SignUpPage} from "./pages/SignUpPage";
 
 const router = createBrowserRouter([
     {
@@ -25,6 +26,9 @@ const router = createBrowserRouter([
             {
                 path:'details/:id', element:<AdvertInfoPage/> ,
                 loader:({params:{id}})=>advertService.getById(+id)
+            },
+            {
+                path:'sign_up', element:<SignUpPage/>
             }
 
         ]

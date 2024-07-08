@@ -23,7 +23,7 @@ body {
 
 .my-link {
     text-decoration: none;
-    color: #441d03;
+    color: #fcd5fc;
     font-size: 24px;
     font-weight: bold;
 }
@@ -37,10 +37,20 @@ body {
     border-radius: 15px;
     font-size: 26px;
     font-weight: bold;
+    transition: all 0.3s ease;
+    box-shadow: -9px 11px 12px -9px rgba(0, 0, 0, 0.75);
+    -webkit-box-shadow: -9px 11px 12px -9px rgba(0, 0, 0, 0.75);
+    -moz-box-shadow: -9px 11px 12px -9px rgba(0, 0, 0, 0.75);
 }
 
 .create-btn:hover {
     cursor: pointer;
+    background: #3b013b;
+    color: #f6ebff;
+    transition: all 0.3s ease;
+    box-shadow: -9px 11px 16px 0 rgba(0, 0, 0, 0.75);
+    -webkit-box-shadow: -9px 11px 16px 0 rgba(0, 0, 0, 0.75);
+    -moz-box-shadow: -9px 11px 16px 0 rgba(0, 0, 0, 0.75);
 }
 
 input::-webkit-calendar-picker-indicator {
@@ -117,6 +127,6 @@ input::placeholder {
     align-items: center;
 }
 
-.login-form input{
+.login-form input {
     width: 250px;
 }

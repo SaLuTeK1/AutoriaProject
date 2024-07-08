@@ -1,6 +1,6 @@
 const baseURL = '/api'
 const socketBaseURL = 'ws://localhost/api'
-
+const images = 'localhost/media/'
 const urls = {
     users:{
         base:'/users',
@@ -25,4 +25,4 @@ const urls = {
     }
 }
 
-export {urls,baseURL,socketBaseURL}
+export {urls,baseURL,socketBaseURL, images}

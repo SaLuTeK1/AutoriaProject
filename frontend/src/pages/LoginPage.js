@@ -25,8 +25,8 @@ const LoginPage = () => {
                 <input type="text" placeholder={'password'} {...register('password')}/>
                 <button className={'btn log-btn'}>login</button>
                 <div style={{display:'flex'}}>
-                    <h4>New there? </h4>
-                    <Link className={'my-link'} style={{fontSize: "16px"}} to={'/sign_up'}>Sign Up</Link>
+                    <h4>New there?</h4>
+                    <Link className={'my-link'} style={{fontSize: "16px", color:"black", marginLeft:"10px"}} to={'/sign_up'}>Sign Up</Link>
                 </div>
             </form>
         </div>

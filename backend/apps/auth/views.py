@@ -18,7 +18,7 @@ from apps.auth.serializers import EmailSerializer, PasswordSerializer
 from apps.users.serializers import UserSerializer
 
 UserModel = get_user_model()
-
+from .serializers import MyTokenObtainPairSerializer
 
 # Create your views here.
 class UserActivateView(GenericAPIView):
@@ -68,7 +68,7 @@ class RecoveryPasswordView(GenericAPIView):
 
 @method_decorator(name='post', decorator=swagger_auto_schema(responses={status.HTTP_200_OK: TokenRefreshSerializer()}, security=[]))
 class TokenPairView(TokenObtainPairView):
-    pass
+    serializer_class = MyTokenObtainPairSerializer
 
 
 class SocketView(GenericAPIView):

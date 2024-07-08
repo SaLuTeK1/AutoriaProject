@@ -17,7 +17,7 @@ const HomePage = () => {
 
     const [query, setQuery] = useSearchParams({page: '1'});
     const page = query.get('page')
-
+    const token = localStorage.getItem('access')
     useEffect(() => {
         advertService.getAll(location.search).then(({data}) => {
             setAdverts(data.data)
@@ -47,14 +47,21 @@ const HomePage = () => {
         }
     }
 
+    const create = ()=>{
+        if(token){
+            navigate('/create')
+        }else {
+            navigate('/login')
+        }
 
+    }
     console.log(adverts)
     const navigate = useNavigate()
     return (
         <div className="wrapper">
             <div style={{display: "flex", justifyContent: "space-between", margin: '40px 0'}}>
                 <SearchForm/>
-                <button className={'create-btn'} onClick={() => navigate('/create')}>SOLD YOUR CAR</button>
+                <button className={'create-btn'} onClick={() => create()}>SOLD YOUR CAR</button>
             </div>
             <Adverts adverts={adverts} />
             <Pagination totalPages={totalPages} setQuery={setQuery} page={page}/>

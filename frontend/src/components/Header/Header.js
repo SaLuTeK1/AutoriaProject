@@ -8,13 +8,12 @@ const Header = () => {
     const token = localStorage.getItem('access')
     useEffect(() => {
 
-    }, [trigger,token]);
+    }, [trigger, token]);
     return (
         <header className={css.HeaderWrap}>
             <div className={`${css.HeaderBox} wrapper`}>
-                <div>
-                    <Link className={'my-link'} to={''}>Auto</Link>
-                </div>
+                <Link className={'my-link'} to={''}>AutoRia Clone</Link>
+
                 <div>
                     <UserInfo setTrigger={setTrigger}/>
                 </div>
