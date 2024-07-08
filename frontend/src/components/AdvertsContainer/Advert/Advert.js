@@ -4,6 +4,7 @@ import {images} from "../../../constants/urls"
 const Advert = ({advert}) => {
     const {id, name, info, region, car, car_photo} = advert
     const navigate = useNavigate()
+    console.log(car_photo)
     return (
         <div className={css.advertBox} onClick={()=>navigate(`/details/${id}`)}>
             {car_photo ?
