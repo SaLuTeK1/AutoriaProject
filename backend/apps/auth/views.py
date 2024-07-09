@@ -20,6 +20,7 @@ from apps.users.serializers import UserSerializer
 UserModel = get_user_model()
 from .serializers import MyTokenObtainPairSerializer
 
+
 # Create your views here.
 class UserActivateView(GenericAPIView):
     """

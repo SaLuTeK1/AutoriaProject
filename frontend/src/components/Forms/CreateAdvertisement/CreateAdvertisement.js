@@ -3,6 +3,8 @@ import {useEffect, useState} from "react";
 import {carsService} from "../../../services/carsService";
 import {advertService} from "../../../services/advertService";
 import {CustomDropdown} from "../CustomDropdown/CustomDropdown";
+import {CreateCarPage} from "../../../pages/CreateCarPage";
+import {Link} from "react-router-dom";
 
 const currency = ['USD', 'UAH', 'EUR'];
 
@@ -30,11 +32,12 @@ const CreateAdvertisement = () => {
             setModels([]);
         }
     }, [selectedBrand]);
-    const save = (advert) => {
-        advertService.create(advert)
-        console.log(advert)
-        // reset();
+
+    const save = (data) => {
+        advertService.create(data)
+        reset();
     }
+
 
     return (
         <form onSubmit={handleSubmit(save)} className="create-advertisement-form wrapper">
@@ -179,7 +182,7 @@ const CreateAdvertisement = () => {
             </div>
             <div className="form-group">
                 <textarea
-                    style={{resize:"none"}}
+                    style={{resize: "none"}}
                     name="info"
                     placeholder="Enter information"
                     className="form-control"
@@ -187,16 +190,21 @@ const CreateAdvertisement = () => {
 
                 />
             </div>
-            <div className="form-group">
-                <input type={"file"}
-                       name={'car.car_photo'}
-                       placeholder={"Upload car photo"}
-                       className="form-control"
-                       {...register('car.car_photo')}
-                />
-            </div>
-            <div className="form-group">
+            {/*<div className="form-group">*/}
+            {/*    <input type={"file"}*/}
+            {/*           name={'car_photo'}*/}
+            {/*           placeholder={"Upload car photo"}*/}
+            {/*           className="form-control"*/}
+            {/*           onChange={handleChange}*/}
+            {/*           {...register('car_photo', {required: true})}*/}
 
+            {/*    />*/}
+            {/*</div>*/}
+            <div className="form-group">
+                <div>
+                    <h5>Not found your car?</h5>
+                    <Link className={'my-link-not'} to={'/notify'}>Notify our managers!</Link>
+                </div>
                 <button type="submit" className={'btn log-btn'}>Save</button>
             </div>
         </form>

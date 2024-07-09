@@ -3,7 +3,7 @@ import {useEffect, useState} from "react";
 import {carsService} from "../../../services/carsService";
 import {advertService} from "../../../services/advertService";
 import {CustomDropdown} from "../CustomDropdown/CustomDropdown";
-import {useNavigate, useSearchParams} from "react-router-dom";
+import {Link, useNavigate, useSearchParams} from "react-router-dom";
 
 const SearchForm = () => {
     const {handleSubmit, register, reset, watch, setValue} = useForm();
@@ -77,7 +77,7 @@ const SearchForm = () => {
                     <button type="submit" className="btn btn-primary">Search</button>
                     <div>
                         <h5>Not found your car?</h5>
-                        <h5>Notify our managers!</h5>
+                        <Link className={'my-link-not'} to={'/notify'}>Notify our managers!</Link>
                     </div>
                 </div>
             </form>

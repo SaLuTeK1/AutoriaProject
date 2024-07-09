@@ -1,12 +1,14 @@
+import json
+
 from rest_framework import status
-from rest_framework.generics import GenericAPIView, ListAPIView
+from rest_framework.generics import GenericAPIView, ListAPIView, UpdateAPIView
 from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework.response import Response
 
 from core.pagination import PagePagination
 
 from apps.advert.models import AdvertModel, AdvertViewsModel
-from apps.advert.serializers import AdvertSerializer, AdvertStatsSerializer
+from apps.advert.serializers import AdvertSerializer, AdvertStatsSerializer, CarPhotoSerializer
 from apps.cars.models import CarModel
 from apps.cars.serializers import CarSerializer
 
@@ -35,7 +37,7 @@ class CreateAdvertView(GenericAPIView):
         advert_serializer = AdvertSerializer(data=data)
         advert_serializer.is_valid(raise_exception=True)
 
-        car_data = self.request.data.pop('car')
+        car_data = data.pop('car')
         car_serializer = CarSerializer(data=car_data)
         car_serializer.is_valid(raise_exception=True)
 
@@ -115,3 +117,18 @@ class TestView(ListAPIView):
         serializer = self.get_serializer(instance)
 
         return Response(serializer.data)
+
+
+class CarAddPhotoView(UpdateAPIView):
+    permission_classes = (IsAuthenticated,)
+    serializer_class = CarPhotoSerializer
+    http_method_names = ('put',)
+
+    def get_object(self):
+        return self.request.user.profile
+
+    def perform_update(self, serializer):
+        profile: AdvertModel = self.get_object()
+        profile.car_photo.delete()
+        super().perform_update(serializer)
+

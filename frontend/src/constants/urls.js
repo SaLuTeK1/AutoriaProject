@@ -1,11 +1,12 @@
 const baseURL = '/api'
-const socketBaseURL = 'ws://localhost/api'
-const images = 'localhost/media/'
+const socketBaseURL = 'ws://final.us-east-1.elasticbeanstalk.com/api'
+const images = 'final.us-east-1.elasticbeanstalk.com/media/'
 const urls = {
     users:{
         base:'/users',
-        ban:'/ban',
+        ban:'/users/ban',
         profile:'/users/profile',
+        notify:'/users/notify',
     },
     auth:{
         login:'/auth',

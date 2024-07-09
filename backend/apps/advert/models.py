@@ -4,7 +4,7 @@ from django.db import models
 
 from core.models import BaseModel
 from core.services.email_service import EmailService
-from core.services.upload_avatar import upload_avatar
+from core.services.upload_avatar import upload_car_photo
 
 from apps.cars.models import CarModel
 
@@ -26,7 +26,7 @@ class AdvertModel(BaseModel):
     views = models.IntegerField(default=0)
     region = models.CharField(max_length=50, validators=[V.MinLengthValidator(2)], choices=[*RegionChoices.choices])
 
-    car_photo = models.ImageField(upload_to=upload_avatar, null=True, blank=True)
+    car_photo = models.ImageField(upload_to=upload_car_photo, null=True, blank=True)
 
     car = models.OneToOneField(CarModel, on_delete=models.CASCADE, related_name='advert')
 

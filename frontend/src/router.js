@@ -7,6 +7,7 @@ import {AdvertInfoPage} from "./pages/AdvertInfoPage";
 
 import {advertService} from "./services/advertService";
 import {SignUpPage} from "./pages/SignUpPage";
+import {NotFoundCarPage} from "./pages/NotFoundCarPage";
 
 const router = createBrowserRouter([
     {
@@ -29,6 +30,9 @@ const router = createBrowserRouter([
             },
             {
                 path:'sign_up', element:<SignUpPage/>
+            },
+            {
+                path:'notify', element:<NotFoundCarPage/>
             }
 
         ]

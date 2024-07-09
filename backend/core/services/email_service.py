@@ -22,6 +22,17 @@ class EmailService:
         msg.send()
 
     @classmethod
+    def notify(cls, message, manager: UserDataClass):
+        cls.__send_email.delay(
+            manager.email,
+            'notify.html',
+            {
+                'name': manager.profile.name, 'message': message,
+            },
+            'Notify manager'
+        )
+
+    @classmethod
     def ad_review(cls, manager: UserDataClass, ad):
         url = f'http://localhost/api/advert/{ad}'
         cls.__send_email.delay(
@@ -52,4 +63,3 @@ class EmailService:
             {'url': url},
             'Recovery'
         )
-

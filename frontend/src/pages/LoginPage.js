@@ -1,15 +1,18 @@
 import {useForm} from "react-hook-form";
 import {authService} from "../services/authService";
 import {Link, useNavigate} from "react-router-dom";
+import {useContext} from "react";
+import {MyContext} from "../hoc/ContextProvider";
 
 const LoginPage = () => {
-
+const {toggleTrigger} = useContext(MyContext);
     const {handleSubmit, register} = useForm();
     const navigate = useNavigate();
     const onSubmit = async (user) => {
         console.log(user)
         await authService.login(user)
         navigate('/home')
+        toggleTrigger()
     }
     return (
 

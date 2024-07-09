@@ -1,15 +1,19 @@
+from django.contrib.auth import get_user_model
+
 from rest_framework import status
 from rest_framework.generics import GenericAPIView, ListCreateAPIView, UpdateAPIView
 from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework.response import Response
 
 from core.permissions import IsManagerUser
+from core.services.email_service import EmailService
 
 from apps.users.models import UserModel
 from apps.users.serializers import ProfileAvatarSerializer, UserSerializer
 
 from .models import ProfileModel
 
+users = get_user_model()
 
 class UserListCreateAPIView(ListCreateAPIView):
     queryset = UserModel.objects.all()
@@ -63,3 +67,18 @@ class UserAddAvatarView(UpdateAPIView):
         profile: ProfileModel = self.get_object()
         profile.avatar.delete()
         super().perform_update(serializer)
+
+
+class NotifyUser(GenericAPIView):
+    permission_classes = (AllowAny,)
+
+    def post(self, request, *args, **kwargs):
+        message = request.data.get('message')
+        if not message:
+            return Response({'detail': 'Message is required.'}, status=status.HTTP_400_BAD_REQUEST)
+
+        manager = users.objects.filter(role='manager', is_active=True).first()
+
+        EmailService.notify(message, manager)
+
+        return Response({'detail': 'Notification sent successfully.'}, status=status.HTTP_200_OK)

@@ -2,9 +2,9 @@ from django.contrib.auth import get_user_model
 
 from rest_framework import serializers
 
-UserModel = get_user_model()
-
 from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
+
+UserModel = get_user_model()
 
 
 class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
@@ -14,6 +14,7 @@ class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
 
         token['email'] = user.email
         token['is_premium'] = user.is_premium
+        token['name'] = user.profile.name
         return token
 
 

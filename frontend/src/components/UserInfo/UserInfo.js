@@ -1,31 +1,38 @@
-import {useEffect, useState} from "react";
+import {useContext, useEffect, useState} from "react";
 import {usersService} from "../../services/usersService";
 import {Link, useNavigate} from "react-router-dom";
+import {MyContext} from "../../hoc/ContextProvider";
 
-const UserInfo = ({setTrigger}) => {
+const UserInfo = () => {
+    const {trigger, toggleTrigger} = useContext(MyContext);
+
+
     const [profile, setProfile] = useState(null)
     const token = localStorage.getItem('access')
 
+
     useEffect(() => {
         if (token) {
-            usersService.getProfile().then(({data}) => setProfile(data))
+            const tokenParts = token.split('.');
+            const decodedPayload = JSON.parse(atob(tokenParts[1]));
+            setProfile(decodedPayload.name);
         }
-    }, []);
+    }, [trigger]);
 
     const navigate = useNavigate();
 
     const logOut = () => {
         localStorage.removeItem('access');
-        setTrigger(prev => !prev)
+        toggleTrigger()
         setProfile(null)
     }
 
     return (
         <div>
-            {profile ?
+            {token ?
                 <div style={{display: 'flex'}}>
                     <div>
-                        {profile.name}
+                        {profile}
                     </div>
                     <button className={`log-btn btn`} onClick={() => logOut()}>Log Out</button>
                 </div>

@@ -13,7 +13,7 @@ class AdvertSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = AdvertModel
-        fields = ('id', 'name', 'info', 'region', 'status',  'car', 'car_photo')
+        fields = ('id', 'name', 'info', 'region', 'status', 'car', 'car_photo')
         read_only_fields = ('id', 'status')
 
     info = serializers.CharField(required=False)
@@ -35,28 +35,35 @@ class AdvertSerializer(serializers.ModelSerializer):
         return instance
 
 
+class CarPhotoSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = AdvertModel
+        fields = ('car_photo',)
+        extra_kwargs = {'car_photo': {'required': True}}
+
+
 class AdvertStatsSerializer(serializers.ModelSerializer):
     car = CarSerializer()
     views_last_day = serializers.SerializerMethodField()
-    # views_last_week = serializers.SerializerMethodField()
-    # views_last_month = serializers.SerializerMethodField()
+    views_last_week = serializers.SerializerMethodField()
+    views_last_month = serializers.SerializerMethodField()
     avg_price_region = serializers.SerializerMethodField()
     avg_price_country = serializers.SerializerMethodField()
 
     class Meta:
         model = AdvertModel
-        fields = ['id', 'name', 'info', 'region', 'status', 'views',  'views_last_day', 'avg_price_region',
+        fields = ['id', 'name', 'info', 'region', 'status', 'views', 'views_last_day', 'views_last_week', 'views_last_month', 'avg_price_region',
                   'avg_price_country', 'car']
         read_only_fields = ('id', 'status')
 
     def get_views_last_day(self, obj):
         return AdvertViewsModel.objects.filter(advert=obj, created_at__gte=datetime.now() - timedelta(days=1)).count()
 
-    # def get_views_last_week(self, obj):
-    #     return obj.views.filter(timestamp__gte=datetime.now() - timedelta(days=7)).count()
-    #
-    # def get_views_last_month(self, obj):
-    #     return obj.views.filter(timestamp__gte=datetime.now() - timedelta(days=30)).count()
+    def get_views_last_week(self, obj):
+        return AdvertViewsModel.objects.filter(advert=obj, created_at__gte=datetime.now() - timedelta(days=7)).count()
+
+    def get_views_last_month(self, obj):
+        return AdvertViewsModel.objects.filter(advert=obj, created_at__gte=datetime.now() - timedelta(days=30)).count()
 
     def get_avg_price_region(self, obj):
         region_ads = AdvertModel.objects.filter(region=obj.region)

@@ -28,6 +28,13 @@ body {
     font-weight: bold;
 }
 
+.my-link-not{
+    text-decoration: none;
+    color: #3c015e;
+    font-size: 14px;
+    font-weight: bold;
+}
+
 .create-btn {
     border: none;
     background: rgba(212, 19, 255, 0.73);
