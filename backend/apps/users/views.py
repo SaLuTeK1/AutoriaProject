@@ -16,12 +16,21 @@ from .models import ProfileModel
 users = get_user_model()
 
 class UserListCreateAPIView(ListCreateAPIView):
+    """
+    get:
+        show all users
+    post:
+        create new user
+    """
     queryset = UserModel.objects.all()
     serializer_class = UserSerializer
     permission_classes = (AllowAny,)
 
 
 class UserBlock(GenericAPIView):
+    """
+    Block a user
+    """
     serializer_class = UserSerializer
     permission_classes = (IsManagerUser,)
 
@@ -40,6 +49,9 @@ class UserBlock(GenericAPIView):
 
 
 class UserUnBlock(GenericAPIView):
+    """
+        Unlock a user
+    """
     serializer_class = UserSerializer
     permission_classes = (IsManagerUser,)
 
@@ -56,6 +68,9 @@ class UserUnBlock(GenericAPIView):
 
 
 class UserAddAvatarView(UpdateAPIView):
+    """
+    Add avatar to user
+    """
     permission_classes = (IsAuthenticated,)
     serializer_class = ProfileAvatarSerializer
     http_method_names = ('put',)
@@ -70,6 +85,9 @@ class UserAddAvatarView(UpdateAPIView):
 
 
 class NotifyUser(GenericAPIView):
+    """
+    Notify a manager for issue
+    """
     permission_classes = (AllowAny,)
 
     def post(self, request, *args, **kwargs):

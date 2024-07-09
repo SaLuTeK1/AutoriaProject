@@ -102,7 +102,7 @@ class ListAdvertView(ListAPIView):
     filterset_class = AdvertFilter
 
 
-class TestView(ListAPIView):
+class GetAdvertView(ListAPIView):
     """
     Show advertisement by id
     """
@@ -120,6 +120,9 @@ class TestView(ListAPIView):
 
 
 class CarAddPhotoView(UpdateAPIView):
+    """
+    Add car photo to advert
+    """
     permission_classes = (IsAuthenticated,)
     serializer_class = CarPhotoSerializer
     http_method_names = ('put',)

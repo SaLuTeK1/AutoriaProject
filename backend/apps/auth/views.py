@@ -24,7 +24,7 @@ from .serializers import MyTokenObtainPairSerializer
 # Create your views here.
 class UserActivateView(GenericAPIView):
     """
-    Show advertisement by id
+    Activate an account
     """
 
     permission_classes = [AllowAny]
@@ -40,6 +40,9 @@ class UserActivateView(GenericAPIView):
 
 
 class RecoveryRequestView(GenericAPIView):
+    """
+     Recovery password request
+    """
     permission_classes = (AllowAny,)
     serializer_class = EmailSerializer
 
@@ -53,6 +56,9 @@ class RecoveryRequestView(GenericAPIView):
 
 
 class RecoveryPasswordView(GenericAPIView):
+    """
+     Recovery password
+    """
     permission_classes = (AllowAny,)
     serializer_class = PasswordSerializer
 

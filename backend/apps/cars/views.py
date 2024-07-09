@@ -11,6 +11,9 @@ from apps.users.serializers import UserSerializer
 
 
 class CreateCarView(GenericAPIView):
+    """
+       Create a new car
+    """
     permission_classes = (IsAuthenticated,)
     serializer_class = CarSerializer
 
@@ -33,12 +36,23 @@ class CreateCarView(GenericAPIView):
 
 
 class CarListView(ListAPIView):
+    """
+       Show all cars
+     """
     queryset = CarModel.objects.all()
     permission_classes = (AllowAny,)
     serializer_class = CarListSerializer
 
 
 class CarRetrieveUpdateDestroyView(RetrieveUpdateDestroyAPIView):
+    """
+    put:
+        change a car
+    delete:
+        delete a car
+    patch:
+        change a car
+    """
     permission_classes = (IsAuthenticated,)
     queryset = CarModel.objects.all()
     serializer_class = CarSerializer

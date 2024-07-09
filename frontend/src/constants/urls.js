@@ -1,6 +1,6 @@
 const baseURL = '/api'
-const socketBaseURL = 'ws://final.us-east-1.elasticbeanstalk.com/api'
-const images = 'final.us-east-1.elasticbeanstalk.com/media/'
+const socketBaseURL = 'ws://Autoria-clone-project-env.eba-ws6pm7q5.us-east-1.elasticbeanstalk.com/api'
+const images = 'Autoria-clone-project-env.eba-ws6pm7q5.us-east-1.elasticbeanstalk.com/media/'
 const urls = {
     users:{
         base:'/users',
