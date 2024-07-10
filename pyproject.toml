@@ -22,6 +22,7 @@ channels-redis = "^4.2.0"
 requests = "^2.32.3"
 django-celery-beat = "^2.6.0"
 django-celery-results = "^2.5.1"
+awsebcli = "^3.20.10"
 
 [tool.poetry.group.dev.dependencies]
 django-dotenv = "^1.4.2"

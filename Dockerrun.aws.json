@@ -1,0 +1,62 @@
+{
+  "AWSEBDockerrunVersion": 2,
+  "containerDefinitions": [
+    {
+      "name": "app",
+      "essential": true,
+      "memory": 512,
+      "environment": [
+        {
+          "name": "MYSQL_HOST",
+          "value": "db"
+        },
+        {
+          "name": "MYSQL_DATABASE",
+          "value": "django"
+        },
+        {
+          "name": "MYSQL_USER",
+          "value": "user"
+        },
+        {
+          "name": "MYSQL_PASSWORD",
+          "value": "user"
+        },
+        {
+          "name": "MYSQL_PORT",
+          "value": "3306"
+        }
+      ]
+    },
+    {
+      "name": "db",
+      "image": "mysql:8",
+      "essential": true,
+      "memory": 512,
+      "portMappings": [
+        {
+          "hostPort": 3306,
+          "containerPort": 3306
+        }
+      ],
+      "environment": [
+        {
+          "name": "MYSQL_DATABASE",
+          "value": "django"
+        },
+        {
+          "name": "MYSQL_USER",
+          "value": "user"
+        },
+        {
+          "name": "MYSQL_PASSWORD",
+          "value": "user"
+        },
+        {
+          "name": "MYSQL_ROOT_PASSWORD",
+          "value": "superpassword"
+        }
+      ]
+    }
+  ]
+}
