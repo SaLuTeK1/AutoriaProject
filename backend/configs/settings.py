@@ -16,7 +16,7 @@ SECRET_KEY = os.environ.get('SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.environ.get('DEBUG') == 'True'
 
-ALLOWED_HOSTS = ['autoria-clone-project-env.eba-ws6pm7q5.us-east-1.elasticbeanstalk.com']
+ALLOWED_HOSTS = ['autoriamyproject.us-east-1.elasticbeanstalk.com']
 
 # Application definition
 

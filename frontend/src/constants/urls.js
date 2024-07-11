@@ -10,7 +10,8 @@ const urls = {
     },
     auth:{
         login:'/auth',
-        socket: `/auth/socket`
+        socket: `/auth/socket`,
+        activate:'/auth/activate'
     },
     cars:{
         base:'/cars',

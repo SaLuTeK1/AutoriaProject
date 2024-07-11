@@ -17,8 +17,9 @@ from drf_yasg.utils import swagger_auto_schema
 from apps.auth.serializers import EmailSerializer, PasswordSerializer
 from apps.users.serializers import UserSerializer
 
-UserModel = get_user_model()
 from .serializers import MyTokenObtainPairSerializer
+
+UserModel = get_user_model()
 
 
 # Create your views here.

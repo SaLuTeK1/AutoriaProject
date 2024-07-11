@@ -45,7 +45,7 @@ class EmailService:
     @classmethod
     def register(cls, user: UserDataClass):
         token = JWTService.create_token(user, ActivateToken)
-        url = f'http://localhost:3000/activate/{token}'
+        url = f'autoriamyproject.us-east-1.elasticbeanstalk.com/activate/{token}'
         cls.__send_email.delay(
             user.email,
             'register.html',

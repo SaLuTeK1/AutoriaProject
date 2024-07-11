@@ -8,7 +8,11 @@ const authService = {
     },
     getSoketToken() {
         return apiService.get(urls.auth.socket)
+    },
+    activateAccount(token){
+        return apiService.post(urls.auth.activate,token)
     }
+
 }
 
 export {

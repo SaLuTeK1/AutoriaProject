@@ -8,6 +8,7 @@ import {AdvertInfoPage} from "./pages/AdvertInfoPage";
 import {advertService} from "./services/advertService";
 import {SignUpPage} from "./pages/SignUpPage";
 import {NotFoundCarPage} from "./pages/NotFoundCarPage";
+import {ActivateAccountPage} from "./pages/ActivateAccountPage";
 
 const router = createBrowserRouter([
     {
@@ -33,6 +34,9 @@ const router = createBrowserRouter([
             },
             {
                 path:'notify', element:<NotFoundCarPage/>
+            },
+            {
+                path:'activate/:token', element:<ActivateAccountPage/>
             }
 
         ]
