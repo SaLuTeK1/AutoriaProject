@@ -11,7 +11,7 @@ const urls = {
     auth:{
         login:'/auth',
         socket: `/auth/socket`,
-        activate:'/auth/activate'
+        activate:(token)=>`/auth/activate/${token}`
     },
     cars:{
         base:'/cars',

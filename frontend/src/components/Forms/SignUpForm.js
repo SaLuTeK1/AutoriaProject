@@ -1,16 +1,17 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {Link, useNavigate} from "react-router-dom";
 import {useForm} from "react-hook-form";
 import {usersService} from "../../services/usersService";
 
 const SignUpForm = () => {
     const {register,reset, handleSubmit} = useForm()
+    const [signed, setSigned] = useState(false)
     const navigate = useNavigate()
     const onSubmit = (user) =>{
         console.log(user)
         usersService.create(user)
-        // navigate('/login')
-        // reset()
+        setSigned(true)
+        reset()
     }
     return (
         <form onSubmit={handleSubmit(onSubmit)}
@@ -27,6 +28,8 @@ const SignUpForm = () => {
             <input type="text" placeholder={'Enter your mobile nubmer'} {...register('profile.phone')}/>
 
             <button className={'btn log-btn'}>Sign Up</button>
+            {signed && <h4 style={{color:"red"}}>Please confirm your email!</h4>}
+
         </form>
     );
 };

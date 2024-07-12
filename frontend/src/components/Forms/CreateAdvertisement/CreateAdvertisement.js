@@ -5,11 +5,16 @@ import {advertService} from "../../../services/advertService";
 import {CustomDropdown} from "../CustomDropdown/CustomDropdown";
 import {CreateCarPage} from "../../../pages/CreateCarPage";
 import {Link} from "react-router-dom";
+import {joiResolver} from "@hookform/resolvers/joi";
+import {formCreateValidators} from "../../../validators/formValidator";
 
 const currency = ['USD', 'UAH', 'EUR'];
 
 const CreateAdvertisement = () => {
-    const {handleSubmit, reset, register, watch, setValue} = useForm();
+    const {handleSubmit, reset, register, watch, setValue,formState:{isValid,errors}} = useForm({
+        mode: 'all',
+        resolver: joiResolver(formCreateValidators)
+    });
 
     const [brands, setBrands] = useState([])
     const [models, setModels] = useState([])
@@ -39,6 +44,7 @@ const CreateAdvertisement = () => {
     }
 
 
+    console.log(isValid)
     return (
         <form onSubmit={handleSubmit(save)} className="create-advertisement-form wrapper">
             <div className="form-group">
@@ -49,6 +55,7 @@ const CreateAdvertisement = () => {
                     className="form-control"
                     {...register('name')}
                 />
+                {errors.name &&<div>{errors.name.message}</div>}
             </div>
 
             <div className="form-group">
@@ -59,6 +66,7 @@ const CreateAdvertisement = () => {
                     setValue={setValue}
                     watch={watch}
                 />
+                {errors.region &&<div>{errors.region.message}</div>}
             </div>
             <div className="form-group">
                 <CustomDropdown
@@ -68,7 +76,7 @@ const CreateAdvertisement = () => {
                     setValue={setValue}
                     watch={watch}
                 />
-
+                {errors.brand &&<div>{errors.brand.message}</div>}
             </div>
             <div className="form-group">
                 <CustomDropdown
@@ -79,6 +87,7 @@ const CreateAdvertisement = () => {
                     watch={watch}
                     disabled={!selectedBrand}
                 />
+                 {errors.model &&<div>{errors.model.message}</div>}
             </div>
 
             <div className="form-group">
@@ -89,6 +98,7 @@ const CreateAdvertisement = () => {
                     className="form-control"
                     {...register('car.year', {valueAsNumber: true})}
                 />
+                {errors.year &&<div>{errors.year.message}</div>}
             </div>
 
             <div className="form-group">
@@ -101,6 +111,7 @@ const CreateAdvertisement = () => {
                     className="form-control"
                     {...register('car.engine', {valueAsNumber: true})}
                 />
+                {errors.engine &&<div>{errors.engine.message}</div>}
             </div>
             {/*<div className="form-group">*/}
 
@@ -120,6 +131,7 @@ const CreateAdvertisement = () => {
                     setValue={setValue}
                     watch={watch}
                 />
+                {errors.body_type &&<div>{errors.body_type.message}</div>}
             </div>
             <div className="form-group">
                 <input
@@ -129,6 +141,7 @@ const CreateAdvertisement = () => {
                     className="form-control"
                     {...register('car.drive')}
                 />
+                {errors.drive &&<div>{errors.drive.message}</div>}
             </div>
             {/*<div className="form-group">*/}
             {/*    <input*/}
@@ -147,6 +160,7 @@ const CreateAdvertisement = () => {
                     className="form-control"
                     {...register('car.capacity', {valueAsNumber: true})}
                 />
+                {errors.capacity &&<div>{errors.capacity.message}</div>}
             </div>
             <div className="form-group">
                 <input
@@ -156,7 +170,9 @@ const CreateAdvertisement = () => {
                     className="form-control"
                     {...register('car.mileage', {valueAsNumber: true})}
                 />
+                {errors.mileage &&<div>{errors.mileage.message}</div>}
             </div>
+
             <div className="form-group">
                 <input
                     type="number"
@@ -165,6 +181,7 @@ const CreateAdvertisement = () => {
                     className="form-control"
                     {...register('car.price', {valueAsNumber: true})}
                 />
+                {errors.price &&<div>{errors.price.message}</div>}
             </div>
             <div className="form-group">
                 <input
@@ -179,6 +196,7 @@ const CreateAdvertisement = () => {
                         <option key={index} value={cur}/>
                     ))}
                 </datalist>
+                {errors.currency &&<div>{errors.currency.message}</div>}
             </div>
             <div className="form-group">
                 <textarea
@@ -187,8 +205,8 @@ const CreateAdvertisement = () => {
                     placeholder="Enter information"
                     className="form-control"
                     {...register('info')}
-
                 />
+                {errors.info &&<div>{errors.info.message}</div>}
             </div>
             {/*<div className="form-group">*/}
             {/*    <input type={"file"}*/}
@@ -200,12 +218,14 @@ const CreateAdvertisement = () => {
 
             {/*    />*/}
             {/*</div>*/}
+
+
             <div className="form-group">
                 <div>
                     <h5>Not found your car?</h5>
                     <Link className={'my-link-not'} to={'/notify'}>Notify our managers!</Link>
                 </div>
-                <button type="submit" className={'btn log-btn'}>Save</button>
+                <button type="submit" disabled={!isValid} className={'btn log-btn'}>Save</button>
             </div>
         </form>
     );

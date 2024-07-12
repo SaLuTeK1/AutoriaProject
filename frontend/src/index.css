@@ -114,6 +114,12 @@ input::placeholder {
     height: 50px;
 }
 
+.btn:disabled{
+    border: 1px solid #3b013b;
+    background: #503350;
+    color: #f6ebff;
+}
+
 .login-box {
     margin-top: 100px;
     display: flex;
